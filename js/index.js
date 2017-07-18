@@ -1,29 +1,23 @@
-window.onload=function(){
-  var merrywrap=document.getElementById("merrywrap");
-  var box=merrywrap.getElementsByClassName("giftbox")[0];
-  var step=1;
-  var stepMinutes=[2000,2000,1000,1000];
-  function init(){
-          box.addEventListener("click",openBox,false);
-  }
-  function stepClass(step){
-    merrywrap.className='merrywrap';
-    merrywrap.className='merrywrap step-'+step;
-  }
-  function openBox(){
-    if(step===1){
-      box.removeEventListener("click",openBox,false); 
-    }  
-    stepClass(step); 
-    if(step===3){ 
-    } 
-    if(step===4){ 
-       return;
-    }     
-    setTimeout(openBox,stepMinutes[step-1]);
-    step++;  
-  }
-   
-  init();
- 
+// number of drops created.
+var nbDrop = 858; 
+
+// function to generate a random number range.
+function randRange( minNum, maxNum) {
+  return (Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum);
 }
+
+// function to generate drops
+function createRain() {
+
+	for( i=1;i<nbDrop;i++) {
+	var dropLeft = randRange(0,1600);
+	var dropTop = randRange(-1000,1400);
+
+	$('.rain').append('<div class="drop" id="drop'+i+'"></div>');
+	$('#drop'+i).css('left',dropLeft);
+	$('#drop'+i).css('top',dropTop);
+	}
+
+}
+// Make it rain
+createRain();
