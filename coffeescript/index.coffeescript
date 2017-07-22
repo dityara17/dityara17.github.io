@@ -1,0 +1,222 @@
+# Hungarian notation
+# (http://en.wikipedia.org/wiki/Hungarian_notation)
+# n - HTML-Node
+# o - object
+# s - string
+# i - integer
+# a - array
+# b - boolean
+# f - float
+# p - Particle
+# fn - function
+# ctx - 2D Context
+
+# General Functions
+fnRequestAnimationFrame = (fnCallback) ->
+  fnAnimFrame =
+    window.requestAnimationFrame or
+    window.webkitRequestAnimationFrame or
+    window.mozRequestAnimationFrame or
+    window.oRequestAnimationFrame or
+    window.msRequestAnimationFrame or
+    (fnCallback) ->
+      window.setTimeOut(fnCallback, 1000 / 60)
+      return
+  fnAnimFrame fnCallback
+  return
+
+# Add Event Listener
+fnAddEventListener = (o, sEvent, fn) ->
+  if o.addEventListener
+    o.addEventListener(sEvent, fn, false)
+  else
+    o['on' + sEvent] = fn
+  return
+
+app = () ->
+  # General Elements
+  oDoc = document
+  nBody = oDoc.body
+  fPI = Math.PI
+  fnRnd = Math.random
+  fnCos = Math.cos
+  fnSin = Math.sin
+  
+  fnTextFadeOut = () ->
+    nValentinesText.setAttribute('class', 'happy-valentines')
+    return
+
+  setTimeout(fnTextFadeOut, 3000)
+  ctxRender = nCanvasRender.getContext '2d'
+
+  oRender = {pFirst: null}
+  oBuffer = {pFirst: null}
+  
+  w = h = 0
+
+  # gets/sets size
+  fnSetSize = () ->
+    nCanvasRender.width = w = window.innerWidth
+    nCanvasRender.height = h = 400 # window.innerHeight
+    {w: w, h: h}
+
+  fnSetSize()
+  
+  # window.onresize
+  fnAddEventListener(window, 'resize', fnSetSize)
+
+  fnSwapList = (p, oSrc, oDst) ->
+    if p?
+      # remove p from oSrc
+      if oSrc.pFirst is p
+        oSrc.pFirst = p.pNext
+        p.pNext.pPrev = null if p.pNext?
+      else
+        p.pPrev.pNext = p.pNext
+        p.pNext.pPrev = p.pPrev if p.pNext?
+    else
+      # create new p
+      p = new Particle()
+  
+    p.pNext = oDst.pFirst
+    oDst.pFirst.pPrev = p if oDst.pFirst?
+    oDst.pFirst = p
+    p.pPrev = null
+    p
+  
+  # Particle
+  class Particle
+    # Current Position
+    fX: 0
+    fY: 0
+    # Current Velocity
+    fVX: 0
+    fVY: 0
+    # color
+    aColor: [128, 0, 0, 1]
+    # double linked list
+    pPrev: null
+    pNext: null
+    
+    fGrowDuration: 100
+    fWaitDuration: 50
+    fShrinkDuration: 50
+    fRadiusCurrent: 0
+    fRadiusStart: 0
+    fRadiusMax: 10
+    fRadiusEnd: 0
+    iFramesAlive: 0
+    bIsDead = false
+    fAX: 0
+    fAY: 0
+    iDirection: 1
+    iPosition: 1
+    
+    fnInit: () ->
+      p = this
+      iRndColor = ~~(fnRnd() * 128)
+      p.aColor = [128 + iRndColor, 0 + iRndColor, 0 + iRndColor, 1]
+      fAngle = fnRnd() * fPI * 2
+      fForce = 1 + 0.5 * fnRnd()
+      p.bIsDead = false;
+      p.iPosition = if fnRnd() < 0.5 then 1 else -1
+      p.iFramesAlive = 0;
+      p.fX = (w / 2) + 150 * p.iPosition
+      p.fY = 0
+      p.fVX = fForce * fnCos(fAngle)
+      p.fVY = Math.sqrt( Math.abs(fForce * fnSin(fAngle)))
+      if (p.iPosition is 1 and p.fVX > 0.4)
+        p.fVX -= 0.6
+      if (p.iPosition is -1 and p.fVX < 0.4)
+        p.fVX += 0.6
+      p.fGrowDuration = 80 + (2 * fnRnd() - 1) * 4
+      p.fWaitDuration = 60 + (2 * fnRnd() - 1) * 10
+      p.fShrinkDuration = 80 + (2 * fnRnd() - 1) * 10
+      p.fRadiusStart = 0.5
+      p.fRadiusMax = 0.5 + 4 * fnRnd()
+      p.fRadiusEnd = 0
+      p.fRadiusCurrent = 0.5
+      p.fAX = 0
+      p.fAY = 0
+      p.iDirection = if fnRnd() < 0.5 then 1 else -1
+      p.iDirection = if p.fVX > 0 then 1 else -1
+      if (p.iPosition is -1 and p.fVX < 0) or (p.iPosition is 1 and p.fVX > 0)
+        p.fRadiusMax *= 2
+        p.fWaitDuration *= 3
+      return
+  
+    fnUpdate: () ->
+      p = this
+      fForce = 0.0003 * fnRnd() * p.iDirection
+
+      if p.iFramesAlive < p.fGrowDuration
+        p.fAX += -fForce * p.fVY
+        p.fAY += fForce * p.fVX
+
+      if p.iFramesAlive > p.fGrowDuration + p.fWaitDuration
+        p.fAX -= -fForce * p.fVY
+        p.fAY -= fForce * p.fVX
+
+      p.fVX += p.fAX
+      p.fVY += p.fAY
+    
+      p.fX += p.fVX
+      p.fY += p.fVY
+      
+      p.iFramesAlive += 1
+
+      if p.iFramesAlive < p.fGrowDuration
+        p.fRadiusCurrent = (p.fRadiusMax - p.fRadiusStart) / p.fGrowDuration * p.iFramesAlive + p.fRadiusStart
+      else if p.iFramesAlive < p.fGrowDuration + p.fWaitDuration
+        p.fRadiusCurrent = p.fRadiusMax
+      else if p.iFramesAlive < p.fGrowDuration + p.fWaitDuration + p.fShrinkDuration
+        p.fRadiusCurrent = (p.fRadiusEnd - p.fRadiusMax) / p.fShrinkDuration * (p.iFramesAlive - p.fGrowDuration - p.fWaitDuration) + p.fRadiusMax
+      else
+        p.bIsDead = true
+      p.aColor[3] = 100 / (255 - p.iFramesAlive / 2)
+      p.bIsDead = true if (p.fX + p.fRadiusCurrent < 0) or (p.fY + p.fRadiusCurrent < 0) or (p.fX > w - p.fRadiusCurrent) or (p.fY > h - p.fRadiusCurrent)
+      fnSwapList(p, oRender, oBuffer) if p.bIsDead is true
+      return
+      
+  fnRender = () ->
+    oImageData = ctxRender.getImageData(0, 0, w, h)
+    aData = oImageData.data
+    iIndex = 3
+    while iIndex < aData.length
+      aData[iIndex] -= 2
+      iIndex += 4
+    # oImageData.data = aData
+    ctxRender.putImageData(oImageData, 0, 0)
+    p = oRender.pFirst
+    iCount = 0
+    while p?
+      ctxRender.fillStyle = "rgba(" + p.aColor.join(',') + ")"
+      ctxRender.beginPath()
+      ctxRender.arc(p.fX, p.fY, Math.max(p.fRadiusCurrent,0.01), 0, 2 * fPI, false)
+      ctxRender.closePath()
+      ctxRender.fill()
+      p = p.pNext
+      iCount += 1
+    return
+  
+  fnNextFrame = () ->
+    iAddParticle = 0
+    iCount = 0
+    while iAddParticle++ < 2
+      p = fnSwapList(oBuffer.pFirst, oBuffer, oRender)
+      p.fnInit()
+  
+    p = oRender.pFirst
+    while p?
+      pNext = p.pNext
+      p.fnUpdate()
+      p = pNext
+      iCount++
+    fnRender()
+    
+    fnRequestAnimationFrame () -> fnNextFrame() 
+    
+  fnNextFrame()  
+  return
+  
+fnAddEventListener(window, 'load', app)
