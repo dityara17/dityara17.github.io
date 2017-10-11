@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 .icon-heart, .lovers-count {
   color: #FF3D7F;
   text-shadow: 2px 2px 2px #FF9E9D;
@@ -16,9 +18,10 @@
   position: relative;
   width: 150px;
   margin: 0 auto;
-}
-.wrapper > .icon-heart {
-  margin-left: -75px;
+  
+  & > .icon-heart {
+    margin-left: -75px;
+  }
 }
 
 .icon-heart.beat {
@@ -27,9 +30,9 @@
 
 .heart {
   transition: transform 300ms;
-}
-.heart.beat {
-  transition: transform 1s;
+  &.beat {
+    transition: transform 1s;
+  }
 }
 
 .lover {
@@ -40,40 +43,49 @@
   font-size: 0.5em;
   text-align: center;
   transition: top 1s;
-}
-.lover > .name, .lover > .avatar {
-  display: block;
-  opacity: 0;
-}
-.lover > .name {
-  transition: font-size 1s, opacity 500ms;
-}
-.lover > .avatar {
-  transition: opacity 500ms;
-}
-.lover > .avatar > img {
-  width: 48px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 2px 2px #FF9E9D;
-}
-.lover.beat {
-  top: 20px;
-  font-size: 2.5em;
-}
-.lover.beat .avatar, .lover.beat .name {
-  opacity: 1;
+  
+  & > .name, & > .avatar {
+    display: block;
+    opacity: 0;
+  }
+  
+  & > .name {
+    transition: font-size 1s, opacity 500ms;
+  }
+  
+  & > .avatar {
+    transition: opacity 500ms;
+    
+    & > img {
+      width: 48px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 2px 2px #FF9E9D;
+    }
+  }
+  
+  &.beat {
+    top: 20px;
+    font-size: 2.5em;
+    
+    .avatar, .name {
+      opacity: 1;
+    }
+  }
 }
 
 body:not(.preload) {
   transition: font-size 300ms, top 300ms;
-}
-body:not(.preload) .lovers-count {
-  transition: opacity 300ms;
-  opacity: 1;
+  
+  .lovers-count {
+    transition: opacity 300ms;
+    opacity: 1;
+  }
 }
 
-body.inlove .lovers-count {
-  opacity: 0;
+body.inlove {
+  .lovers-count {
+    opacity: 0;
+  }
 }
 
 .top-left {
@@ -83,12 +95,14 @@ body.inlove .lovers-count {
   overflow: hidden;
   top: 0;
   left: 0;
-}
-.top-left > .icon-heart {
-  margin-left: -38px;
-}
-.top-left.beat {
-  transform: translateX(-3000px) translateY(-500px) rotate(-135deg) scale(30);
+  
+  & > .icon-heart {
+    margin-left: -38px;
+  }
+  
+  &.beat {
+    transform: translateX(-3000px) translateY(-500px) rotate(-135deg) scale(30);
+  }
 }
 
 .top-right {
@@ -98,12 +112,14 @@ body.inlove .lovers-count {
   overflow: hidden;
   top: 0;
   left: 75px;
-}
-.top-right > .icon-heart {
-  margin-left: -115px;
-}
-.top-right.beat {
-  transform: translateX(3000px) translateY(-500px) rotate(135deg) scale(30);
+  
+  & > .icon-heart {
+    margin-left: -115px;
+  }
+  
+  &.beat {
+    transform: translateX(3000px) translateY(-500px) rotate(135deg) scale(30);
+  }
 }
 
 .bottom {
@@ -113,26 +129,29 @@ body.inlove .lovers-count {
   overflow: hidden;
   top: 75px;
   left: 0;
-}
-.bottom > .icon-heart {
-  margin-top: -75px;
-  margin-left: -75px;
-}
-.bottom.beat {
-  transform: translateY(3000px) scale(10);
+  
+  & > .icon-heart {
+    margin-top: -75px;
+    margin-left: -75px;
+  }
+  
+  &.beat {
+    transform: translateY(3000px) scale(10);
+  }
 }
 
 @keyframes beat {
   0% {
-    text-shadow: 0px 0px 0px rgba(255, 0, 0, 0.5);
+    text-shadow: 0px 0px 0px rgba(255,0,0,0.5);
   }
   50% {
-    text-shadow: 0px 0px 2000px rgba(255, 0, 0, 0.5);
+    text-shadow: 0px 0px 2000px rgba(255,0,0,0.5);
   }
   100% {
-    text-shadow: 0px 0px 0px rgba(255, 0, 0, 0);
+    text-shadow: 0px 0px 0px rgba(255,0,0,0);
   }
 }
+
 body {
   text-align: center;
   padding-top: 50px;
