@@ -1,204 +1,152 @@
 <!DOCTYPE html>
-<html class="preload">
+<html>
+<style type="text/css">	
+body{
+	width:100%;
+	margin:0;
+	position: relative;
+	overflow: hidden;
+}
+.my{
+	position: absolute;
+	top: 10px;
+	z-index: 9999;
+	margin-top: 20px;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+.my p{
+	color: #fff;
+	text-align: justify;
+	font-family: Segoe UI;
+	font-size: 2.6em;
+}
+.my h3{
+	font-size: 3em;
+	margin:0;
+	color: #fff;
+	padding: 0;
+	font-family: Segoe UI;
+	font-weight: normal;
+	text-align: center;
+}
+</style>
+
 <head>
-  <meta charset="UTF-8">
-  <title>11Something.me</title>
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-
-  
-      <style>
-      /* NOTE: The styles were added inline because Prefixfree needs access to your styles and they must be inlined if they are on local disk! */
-      .icon-heart, .lovers-count {
-  color: #FF3D7F;
-  text-shadow: 2px 2px 2px #FF9E9D;
-  display: block;
-  position: absolute;
-  font-size: 150px;
-  left: 50%;
-}
-
-.lovers-count {
-  margin-left: 80px;
-  opacity: 0;
-}
-
-.wrapper {
-  position: relative;
-  width: 150px;
-  margin: 0 auto;
-}
-.wrapper > .icon-heart {
-  margin-left: -75px;
-}
-
-.icon-heart.beat {
-  animation-name: beat;
-}
-
-.heart {
-  transition: transform 300ms;
-}
-.heart.beat {
-  transition: transform 1s;
-}
-
-.lover {
-  position: absolute;
-  top: 50px;
-  left: -175px;
-  width: 500px;
-  font-size: 0.5em;
-  text-align: center;
-  transition: top 1s;
-}
-.lover > .name, .lover > .avatar {
-  display: block;
-  opacity: 0;
-}
-.lover > .name {
-  transition: font-size 1s, opacity 500ms;
-}
-.lover > .avatar {
-  transition: opacity 500ms;
-}
-.lover > .avatar > img {
-  width: 48px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 2px 2px #FF9E9D;
-}
-.lover.beat {
-  top: 20px;
-  font-size: 2.5em;
-}
-.lover.beat .avatar, .lover.beat .name {
-  opacity: 1;
-}
-
-body:not(.preload) {
-  transition: font-size 300ms, top 300ms;
-}
-body:not(.preload) .lovers-count {
-  transition: opacity 300ms;
-  opacity: 1;
-}
-
-body.inlove .lovers-count {
-  opacity: 0;
-}
-
-.top-left {
-  width: 75px;
-  height: 75px;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 0;
-}
-.top-left > .icon-heart {
-  margin-left: -38px;
-}
-.top-left.beat {
-  transform: translateX(-3000px) translateY(-500px) rotate(-135deg) scale(30);
-}
-
-.top-right {
-  width: 80px;
-  height: 75px;
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 75px;
-}
-.top-right > .icon-heart {
-  margin-left: -115px;
-}
-.top-right.beat {
-  transform: translateX(3000px) translateY(-500px) rotate(135deg) scale(30);
-}
-
-.bottom {
-  width: 150px;
-  height: 75px;
-  position: absolute;
-  overflow: hidden;
-  top: 75px;
-  left: 0;
-}
-.bottom > .icon-heart {
-  margin-top: -75px;
-  margin-left: -75px;
-}
-.bottom.beat {
-  transform: translateY(3000px) scale(10);
-}
-
-@keyframes beat {
-  0% {
-    text-shadow: 0px 0px 0px rgba(255, 0, 0, 0.5);
-  }
-  50% {
-    text-shadow: 0px 0px 2000px rgba(255, 0, 0, 0.5);
-  }
-  100% {
-    text-shadow: 0px 0px 0px rgba(255, 0, 0, 0);
-  }
-}
-body {
-  text-align: center;
-  padding-top: 50px;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 300;
-  background: #e3e1bf;
-  overflow: hidden;
-}
-
-h1, .lover {
-  color: #FF9E9D;
-  text-shadow: 2px 2px 2px #FF3D7F;
-}
-
-h1 {
-  font-size: 2.5em;
-  margin-bottom: 0.25em;
-}
-
-h3 {
-  font-size: 1.5em;
-  margin-bottom: 1.25em;
-  color: #FF3D7F;
-  text-shadow: 2px 2px 2px #FF9E9D;
-}
-
-    </style>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
+	<title>Happy Anniversary</title>
 </head>
-
 <body>
-  <h1>I can't keep calm because I'm crazy for you</h1>
-<h3>Aditya Rizki pratama & Fitria Nur Rohmah :)</h3>
-<h3 class="lovers-count"></h3>
-<div class="main wrapper">
-  <div class="lover">
-    <span class="avatar"></span>
-    <span class="name"></span>
-  </div>
-  <div class="heart top-left">
-    <i class="icon-heart"></i>
-  </div>
-  <div class="heart top-right">
-    <i class="icon-heart"></i>
-  </div>
-  <div class="heart bottom">
-    <i class="icon-heart"></i>
-  </div>
-</div>
-  <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-    <script  src="js/index.js"></script>
-
+	<canvas id = 'canv'></canvas>
+	<div class="my">
+		<h3>11 Something</h3>
+		<p>
+			People say, that time waits for no one. But we are an exception because I feel that time has paused ever since the day I kissed you for the first time. Happy anniversary. <br>
+			~Aditya Rizki Pratama
+		</p>
+	</div>
 </body>
+<script type="text/javascript">
+	var c = document.getElementById("canv");
+	var $ = c.getContext("2d");
+	c.width = window.innerWidth;
+	c.height = window.innerHeight;
+
+	var spíritus = 10;
+	var juntos = 100;
+
+	function heart() {
+		var love = this;
+		var tolerance = 1e3; 
+		love.isPatient =  (humans / 4) % c.width; 
+		love.isKind = Math.floor((humans / 4) / c.height); 
+		love.doesNotEnvy = randomKindness() * spíritus; 
+		love.isNotProud = randomKindness() * spíritus; 
+		love.doesNotDishonor = 2 + randomKindness(1) * spíritus; 
+		love.isNotAngered = 0.05; 
+		love.isColorful = Math.random() * 360;  
+		love.rejoices = spíritus + randomKindness(1) * spíritus; 
+		love.thyNeighborx = randomKindness(1) * tolerance;
+		love.thyNeighbory = randomKindness(1) * tolerance;
+		love.everyone = function() {
+			unitet = unitat = love.doesNotDishonor;
+			unité = love.thyNeighborx;
+			unità = love.thyNeighbory;
+			$.fillStyle = 'hsla( '+ love.isColorful +', 90%, 65%, 1)';
+			$.beginPath();
+			$.moveTo(unité + 0.5 * unitat, unità + 0.3 * unitet);
+			$.bezierCurveTo(unité + 0.1 * unitat, unità, unité, 
+				unità + 0.6 * unitet, unité + 0.5 * 
+				unitat, unità + 0.9 * unitet);
+			$.bezierCurveTo(unité + 1 * unitat, unità + 0.6 * 
+				unitet, unité + 0.9 * unitat, unità, 
+				unité + 0.5 * unitat,
+				unità + 0.3 * unitet);
+			$.closePath();
+			$.fill();
+		};
+		love.deeply = function() {
+			unité = love.thyNeighborx;
+			unità = love.thyNeighbory;
+			feliz = love.rejoices;
+			forcë = love.isPatient;
+			spíritus = love.isKind;
+			unité < forcë - love.rejoices && 
+			((love.thyNeighborx = forcë - feliz), 
+				(love.doesNotEnvy *= -1));
+			unité > forcë + love.rejoices && 
+			((love.thyNeighborx = forcë + feliz), 
+				(love.doesNotEnvy *= -1));
+			unità < spíritus - feliz && 
+			((love.thyNeighbory = spíritus - feliz), 
+				(love.isNotProud *= -1));
+			unità > spíritus + feliz && 
+			((love.thyNeighbory = spíritus + feliz), 
+				(love.isNotProud *= -1));
+		};
+		love.endlessly = function() {
+			love.doesNotEnvy > juntos && (love.doesNotEnvy = juntos);
+			love.isNotProud > juntos && (love.isNotProud = juntos);
+			love.thyNeighborx += love.doesNotEnvy * love.isNotAngered;
+			love.thyNeighbory += love.isNotProud * love.isNotAngered;
+			love.deeply();
+		};
+	} noHate();
+
+	function noHate() {
+		$.fillStyle = "#272D4D";
+		$.fillRect(0, 0, c.width, c.height);
+	}
+
+	function randomKindness(r) {
+		rnd = Math.random();
+		return r ? 2 * rnd - 1 : rnd;
+	}
+
+	$.fillStyle = "hsla(0,0%,0%,1)";
+	$.font = "Bold 12em sans-serif";
+	var t = "LOVE".split("").join(String.fromCharCode(0x2006));
+	$.fillText(t, (c.width - $.measureText(t).width) * 0.5, c.height * 0.5);
+
+	world = [];
+	diversity = $.getImageData(0, 0, c.width, c.height);
+	we = diversity.data; riseUp = 0;
+
+	for (humans = 0; humans < we.length; humans += 4)
+		0 == we[humans] && (riseUp++, 0 == riseUp % 20 && 
+			((amour = new heart()), amour.everyone(), world.push(amour)));
+
+	function hope(){
+		noHate();
+		for (humans in world) 
+			(amar = world[humans]), amar.endlessly(), amar.everyone();
+		window.requestAnimationFrame(hope);
+	}; hope();
+
+	window.addEventListener('resize',function(){
+		c.width = window.innerWidth;
+		c.height = window.innerHeight;
+	},false);
+
+	console.log('Coded With ❤ Always, @tmrDevelops');
+</script>
 </html>
